@@ -1,0 +1,139 @@
+@model List<CatalogoApp.Domain.Models.Item>
+
+@{
+    ViewData["Title"] = "Catálogo 2026";
+    string? marcaActual = ViewBag.MarcaActual as string;
+    string? categoriaActual = ViewBag.CategoriaActual as string;
+    string? busquedaActual = ViewBag.BusquedaActual as string;
+    string? ordenActual = ViewBag.OrdenActual as string;
+    var marcas = ViewBag.Marcas as List<string>;
+    var categorias = ViewBag.Categorias as List<string>;
+    int totalResultados = ViewBag.TotalResultados ?? Model.Count;
+}
+
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">Catálogo oficial</span>
+        <h1>Dk Motos 2026</h1>
+        <p>Explorá nuestra selección de motocicletas por marca, categoría y precio.</p>
+    </div>
+
+    <a class="btn btn-primary-dark" asp-action="Agregar">+ Agregar moto</a>
+</section>
+
+<section class="filter-panel advanced-filter-panel">
+    <form asp-action="Index" method="get" class="filter-form">
+        <div class="filter-group filter-search">
+            <label for="busqueda">Buscar motocicleta</label>
+            <input id="busqueda" name="busqueda" class="form-control filter-control" value="@busquedaActual" placeholder="Marca, modelo o categoría" />
+        </div>
+
+        <div class="filter-group">
+            <label for="categoria">Categoría</label>
+            <select id="categoria" name="categoria" class="form-control filter-control">
+                <option value="">Todas</option>
+                @if (categorias != null)
+                {
+                    @foreach (var categoria in categorias)
+                    {
+                        <option value="@categoria" selected="@(categoriaActual == categoria)">@categoria</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="orden">Ordenar por</label>
+            <select id="orden" name="orden" class="form-control filter-control">
+                <option value="" selected="@(string.IsNullOrEmpty(ordenActual))">Marca y modelo</option>
+                <option value="precio-asc" selected="@(ordenActual == "precio-asc")">Precio: menor a mayor</option>
+                <option value="precio-desc" selected="@(ordenActual == "precio-desc")">Precio: mayor a menor</option>
+                <option value="ano-desc" selected="@(ordenActual == "ano-desc")">Año: más reciente</option>
+                <option value="ano-asc" selected="@(ordenActual == "ano-asc")">Año: más antiguo</option>
+            </select>
+        </div>
+
+        @if (!string.IsNullOrEmpty(marcaActual))
+        {
+            <input type="hidden" name="marca" value="@marcaActual" />
+        }
+
+        <div class="filter-actions">
+            <button type="submit" class="btn btn-primary-dark">Aplicar filtros</button>
+            <a class="btn btn-secondary-dark" asp-action="Index">Limpiar</a>
+        </div>
+    </form>
+
+    <div class="brand-filter-row">
+        <a class="filter-chip @(string.IsNullOrEmpty(marcaActual) ? "active" : "")"
+           asp-action="Index"
+           asp-route-busqueda="@busquedaActual"
+           asp-route-categoria="@categoriaActual"
+           asp-route-orden="@ordenActual">Todas las marcas</a>
+
+        @if (marcas != null)
+        {
+            @foreach (var marca in marcas)
+            {
+                <a class="filter-chip @(marcaActual == marca ? "active" : "")"
+                   asp-action="Index"
+                   asp-route-marca="@marca"
+                   asp-route-busqueda="@busquedaActual"
+                   asp-route-categoria="@categoriaActual"
+                   asp-route-orden="@ordenActual">@marca</a>
+            }
+        }
+    </div>
+</section>
+
+<div class="catalog-results-summary">
+    <span>@totalResultados motocicleta@(totalResultados == 1 ? "" : "s") encontrada@(totalResultados == 1 ? "" : "s")</span>
+    @if (!string.IsNullOrWhiteSpace(busquedaActual) || !string.IsNullOrWhiteSpace(marcaActual) || !string.IsNullOrWhiteSpace(categoriaActual))
+    {
+        <strong>Filtros activos</strong>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <section class="empty-state">
+        <span class="eyebrow">Sin resultados</span>
+        <h2>No se encontraron motocicletas</h2>
+        <p>Probá cambiando la búsqueda, seleccionando otra categoría o limpiando los filtros activos.</p>
+        <a class="btn btn-primary-dark" asp-action="Index">Ver catálogo completo</a>
+    </section>
+}
+else
+{
+    <section class="catalog-grid">
+        @foreach (var item in Model)
+        {
+            <article class="moto-card">
+                <div class="moto-card-image">
+                    <img src="@item.ImagenUrl" alt="@item.Marca @item.Modelo" loading="lazy" />
+                    <span class="moto-badge">@item.Categoria</span>
+                </div>
+
+                <div class="moto-card-body">
+                    <div class="moto-card-header">
+                        <span class="moto-brand">@item.Marca</span>
+                        <span class="moto-year">@item.Ano</span>
+                    </div>
+
+                    <h2>@item.Modelo</h2>
+
+                    <div class="moto-specs">
+                        <span>@item.Cilindrada</span>
+                        <span class="spec-divider">&middot;</span>
+                        <span>@item.Potencia</span>
+                    </div>
+
+                    <div class="moto-card-footer">
+                        <span class="moto-price">$@item.Precio.ToString("N0")</span>
+                        <a asp-action="Detalle" asp-route-id="@item.Id">Ver detalle &rarr;</a>
+                    </div>
+                </div>
+            </article>
+        }
+    </section>
+}

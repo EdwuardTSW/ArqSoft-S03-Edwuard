@@ -1,0 +1,52 @@
+@model CatalogoApp.Domain.Models.Item
+
+@{
+    ViewData["Title"] = $"{Model.Marca} {Model.Modelo}";
+}
+
+<section class="detail-wrapper">
+    <a class="back-link" asp-action="Index">&larr; Volver al catálogo</a>
+
+    <article class="detail-card">
+        <div class="detail-hero">
+            <img src="@Model.ImagenUrl" alt="@Model.Marca @Model.Modelo" />
+            <div class="detail-hero-overlay">
+                <span class="eyebrow">@Model.Marca</span>
+                <h1>@Model.Modelo</h1>
+                <span class="detail-price">$@Model.Precio.ToString("N0")</span>
+            </div>
+        </div>
+
+        <div class="detail-grid">
+            <div>
+                <span>Cilindrada</span>
+                <strong>@Model.Cilindrada</strong>
+            </div>
+            <div>
+                <span>Potencia</span>
+                <strong>@Model.Potencia</strong>
+            </div>
+            <div>
+                <span>Año</span>
+                <strong>@Model.Ano</strong>
+            </div>
+            <div>
+                <span>Categoría</span>
+                <strong>@Model.Categoria</strong>
+            </div>
+            <div>
+                <span>Transmisión</span>
+                <strong>@Model.Transmision</strong>
+            </div>
+            <div>
+                <span>Color</span>
+                <strong>@Model.Color</strong>
+            </div>
+        </div>
+
+        <div class="description-box">
+            <span>Descripción</span>
+            <p>@Model.Descripcion</p>
+        </div>
+    </article>
+</section>

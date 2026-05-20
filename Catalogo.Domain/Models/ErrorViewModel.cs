@@ -1,4 +1,4 @@
-namespace Catalogo.Presentation.Models
+﻿namespace CatalogoApp.Domain.Models
 {
     public class ErrorViewModel
     {
