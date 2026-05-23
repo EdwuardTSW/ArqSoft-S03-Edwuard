@@ -1,8 +1,68 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="home-hero">
+    <div class="home-hero-content">
+        <span class="eyebrow">Catálogo premium 2026</span>
+        <h1>Dk Agencia Distribuidora de Motos</h1>
+        <p>Explora una selección de motocicletas deportivas, naked, cruiser y adventure con reseñas de usuarios, fichas técnicas y administración segura del catálogo.</p>
+
+        <div class="hero-actions">
+            <a class="btn btn-primary-dark" asp-controller="Catalogo" asp-action="Index">Ver catálogo</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a class="btn btn-secondary-dark" asp-controller="Catalogo" asp-action="Index">Explorar motos</a>
+            }
+            else
+            {
+                <a class="btn btn-secondary-dark" asp-controller="Account" asp-action="Register">Crear cuenta</a>
+            }
+        </div>
+    </div>
+
+    <div class="home-hero-visual">
+        <div class="hero-logo-card">
+            <img src="~/img/DeLaApp/imglogo.png" alt="Dk Agencia Distribuidora de Motos" />
+            <span>Alto rendimiento</span>
+            <strong>Agencia digital de motos</strong>
+        </div>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <article>
+        <strong>2026</strong>
+        <span>Modelos destacados</span>
+    </article>
+    <article>
+        <strong>+15</strong>
+        <span>Motocicletas en catálogo</span>
+    </article>
+    <article>
+        <strong>5★</strong>
+        <span>Reseñas por usuario</span>
+    </article>
+    <article>
+        <strong>Admin</strong>
+        <span>Gestión protegida</span>
+    </article>
+</section>
+
+<section class="home-feature-grid">
+    <article class="feature-card">
+        <span class="eyebrow">Catálogo</span>
+        <h2>Filtra por marca, categoría y precio</h2>
+        <p>Encuentra rápido la moto ideal con búsqueda, ordenamiento y chips de marca.</p>
+    </article>
+    <article class="feature-card">
+        <span class="eyebrow">Comunidad</span>
+        <h2>Reseñas con calificación</h2>
+        <p>Los usuarios registrados pueden publicar una reseña por motocicleta y consultar el promedio general.</p>
+    </article>
+    <article class="feature-card">
+        <span class="eyebrow">Seguridad</span>
+        <h2>Administración con roles</h2>
+        <p>Solo el super usuario puede agregar o eliminar motos del catálogo.</p>
+    </article>
+</section>
