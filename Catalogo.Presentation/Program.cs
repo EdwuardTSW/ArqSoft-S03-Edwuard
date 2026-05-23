@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/Account/Login";
         options.LogoutPath = "/Account/Logout";
-        options.AccessDeniedPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
     });
 
 // Registrar el repositorio JSON como implementación de IItemRepository
@@ -54,6 +54,12 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<ReviewService>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var usuarioService = scope.ServiceProvider.GetRequiredService<UsuarioService>();
+    usuarioService.CrearAdminInicialSiNoExiste("Edwuard Chay", "admin@catalogo.local", "Admin123!");
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

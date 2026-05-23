@@ -36,6 +36,7 @@ namespace CatalogoApp.Application.Services
                 Nombre = nombre.Trim(),
                 Email = email,
                 PasswordHash = HashPassword(password),
+                Rol = "Usuario",
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -54,6 +55,27 @@ namespace CatalogoApp.Application.Services
             }
 
             return usuario;
+        }
+
+        public void CrearAdminInicialSiNoExiste(string nombre, string email, string password)
+        {
+            email = email.Trim().ToLowerInvariant();
+
+            if (_repo.ExisteAdmin() || _repo.ExisteEmail(email))
+            {
+                return;
+            }
+
+            var usuario = new Usuario
+            {
+                Nombre = nombre.Trim(),
+                Email = email,
+                PasswordHash = HashPassword(password),
+                Rol = "Admin",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _repo.Agregar(usuario);
         }
 
         private static string HashPassword(string password)

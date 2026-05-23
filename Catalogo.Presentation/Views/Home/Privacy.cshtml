@@ -1,6 +1,39 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Política de privacidad";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<section class="privacy-wrapper">
+    <div class="privacy-card">
+        <span class="eyebrow">Privacidad</span>
+        <h1>Política de privacidad</h1>
+        <p>Esta política explica cómo se manejan los datos dentro de CatalogoApp, un proyecto académico desarrollado para practicar ASP.NET Core MVC, autenticación y persistencia temporal mediante archivos JSON.</p>
+
+        <h2>¿Qué datos recopilamos?</h2>
+        <p>El sistema puede recopilar el nombre, correo electrónico, contraseña protegida mediante hash, reseñas, calificaciones y fecha de creación de los registros. No se almacena la contraseña en texto plano.</p>
+
+        <h2>¿Cómo usamos sus datos?</h2>
+        <p>Los datos se usan para permitir el registro, inicio de sesión, publicación de reseñas y control de permisos entre usuarios normales y el super usuario administrador.</p>
+
+        <h2>¿Compartimos tus datos?</h2>
+        <p>No. Los datos no se comparten con terceros ni se conectan con servicios externos. La aplicación solo los utiliza dentro del funcionamiento local del proyecto.</p>
+
+        <h2>¿Dónde se almacenan?</h2>
+        <p>Los datos se almacenan temporalmente en archivos JSON dentro del proyecto, específicamente en la carpeta <code>Data</code> de la aplicación de presentación.</p>
+
+        <h2>NOTA IMPORTANTE SOBRE SEGURIDAD</h2>
+        <p>Este sistema es un proyecto académico y no debe considerarse una solución lista para producción. Aunque las contraseñas se protegen con hash, el almacenamiento en JSON es temporal y está pensado únicamente para fines de aprendizaje.</p>
+
+        <h2>¿Puedes eliminar tus datos?</h2>
+        <p>Como este sistema es un proyecto académico, la eliminación de datos no se realiza desde una opción automática dentro de la aplicación. Para solicitar la eliminación de datos, debes contactar directamente al desarrollador.</p>
+
+        <h2>Contacto</h2>
+        <p>El único medio de contacto para este proyecto es GitHub.</p>
+
+        <a class="btn btn-primary-dark github-contact-button" href="https://github.com/EdwuardTSW" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.67 7.67 0 0 1 8 3.86c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+            </svg>
+            GitHub - Edwuard Chay
+        </a>
+    </div>
+</section>

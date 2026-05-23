@@ -17,6 +17,8 @@ namespace CatalogoApp.Domain.Models
 
         public string PasswordHash { get; set; } = string.Empty;
 
+        public string Rol { get; set; } = "Usuario";
+
         public DateTime CreatedAt { get; set; }
     }
 }

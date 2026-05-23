@@ -47,11 +47,13 @@ namespace CatalogoApp.Presentation.Controllers
 
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Agregar()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Agregar(Item item)
         {
@@ -63,6 +65,7 @@ namespace CatalogoApp.Presentation.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Eliminar(int id)
         {

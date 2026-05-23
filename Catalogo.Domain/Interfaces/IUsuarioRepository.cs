@@ -8,6 +8,7 @@ namespace CatalogoApp.Domain.Interfaces
         Usuario? ObtenerPorId(int id);
         Usuario? ObtenerPorEmail(string email);
         bool ExisteEmail(string email);
+        bool ExisteAdmin();
         void Agregar(Usuario usuario);
     }
 }

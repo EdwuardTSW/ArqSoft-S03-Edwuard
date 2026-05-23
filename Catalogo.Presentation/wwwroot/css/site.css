@@ -147,3 +147,31 @@ body {
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+.admin-delete-form {
+  margin-top: 1rem;
+}
+
+.privacy-wrapper {
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.privacy-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 1.5rem;
+  background: #fff;
+}
+
+.privacy-card h2 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.github-contact-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

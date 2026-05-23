@@ -47,6 +47,11 @@ namespace CatalogoApp.Infrastructure.Repositories
             return ObtenerPorEmail(email) != null;
         }
 
+        public bool ExisteAdmin()
+        {
+            return ObtenerTodos().Any(u => string.Equals(u.Rol, "Admin", StringComparison.OrdinalIgnoreCase));
+        }
+
         public void Agregar(Usuario usuario)
         {
             lock (_lock)

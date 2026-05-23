@@ -38,7 +38,7 @@ namespace CatalogoApp.Presentation.Controllers
                 return View(model);
             }
 
-            await IniciarSesion(usuario.Id, usuario.Nombre, usuario.Email);
+            await IniciarSesion(usuario.Id, usuario.Nombre, usuario.Email, usuario.Rol);
 
             if (!string.IsNullOrWhiteSpace(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
             {
@@ -65,7 +65,7 @@ namespace CatalogoApp.Presentation.Controllers
             try
             {
                 var usuario = _usuarioService.Registrar(model.Nombre, model.Email, model.Password);
-                await IniciarSesion(usuario.Id, usuario.Nombre, usuario.Email);
+                await IniciarSesion(usuario.Id, usuario.Nombre, usuario.Email, usuario.Rol);
             }
             catch (InvalidOperationException ex)
             {
@@ -89,13 +89,19 @@ namespace CatalogoApp.Presentation.Controllers
             return RedirectToAction("Index", "Catalogo");
         }
 
-        private async Task IniciarSesion(int id, string nombre, string email)
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        private async Task IniciarSesion(int id, string nombre, string email, string rol)
         {
             var claims = new List<Claim>
             {
                 new(ClaimTypes.NameIdentifier, id.ToString()),
                 new(ClaimTypes.Name, nombre),
-                new(ClaimTypes.Email, email)
+                new(ClaimTypes.Email, email),
+                new(ClaimTypes.Role, string.IsNullOrWhiteSpace(rol) ? "Usuario" : rol)
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

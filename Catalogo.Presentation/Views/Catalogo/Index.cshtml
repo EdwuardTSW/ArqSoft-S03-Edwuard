@@ -18,7 +18,10 @@
         <p>Explorá nuestra selección de motocicletas por marca, categoría y precio.</p>
     </div>
 
-    <a class="btn btn-primary-dark" asp-action="Agregar">+ Agregar moto</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary-dark" asp-action="Agregar">+ Agregar moto</a>
+    }
 </section>
 
 <section class="filter-panel advanced-filter-panel">
