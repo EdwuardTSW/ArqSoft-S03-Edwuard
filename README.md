@@ -40,29 +40,43 @@ Las siguientes secciones están reservadas para agregar capturas de pantalla del
 
 ### Página de Inicio
 
-![Página de inicio](docs/screenshots/home.png)
+<img width="1919" height="1037" alt="image" src="https://github.com/user-attachments/assets/b55e0ae5-9ff2-455f-8f97-896e6635c168" />
+
 
 ### Catálogo de Motocicletas
 
-![Catálogo de motocicletas](docs/screenshots/catalogo.png)
+<img width="1919" height="1038" alt="image" src="https://github.com/user-attachments/assets/af63e359-90f6-4904-a097-9e0de84bb06a" />
+
 
 ### Filtros del Catálogo
 
-![Filtros del catálogo](docs/screenshots/filtros.png)
+<img width="1919" height="1036" alt="image" src="https://github.com/user-attachments/assets/2117a400-51fc-4d5d-bf6a-4d5b817a279b" />
+
 
 ### Detalle de Motocicleta
 
-![Detalle de motocicleta](docs/screenshots/detalle.png)
+<img width="1919" height="1037" alt="image" src="https://github.com/user-attachments/assets/9891627b-2c96-4d9b-b148-48aaf7409f82" />
+
 
 ### Login y Registro
 
-![Login](docs/screenshots/login.png)
+<img width="1919" height="1037" alt="image" src="https://github.com/user-attachments/assets/9b6f8369-db38-4b27-947f-8936144d91b1" />
 
-![Registro](docs/screenshots/register.png)
+<img width="1919" height="956" alt="image" src="https://github.com/user-attachments/assets/bc981052-0711-48eb-8d50-e81a13b61046" />
+
+<img width="1919" height="956" alt="image" src="https://github.com/user-attachments/assets/93a9027e-b908-4fca-921c-ebf84812ed4c" />
+
+### Admin
+
+<img width="598" height="432" alt="image" src="https://github.com/user-attachments/assets/29a8f0c8-c245-4362-90c8-9b2c63213732" />
+
+<img width="1075" height="235" alt="image" src="https://github.com/user-attachments/assets/8c21192f-1412-4f0c-9417-4a3643196d63" />
+
 
 ### Formulario para Agregar Motocicleta
 
-![Formulario para agregar motocicleta](docs/screenshots/agregar.png)
+<img width="1919" height="1032" alt="image" src="https://github.com/user-attachments/assets/d0acb707-7bee-44d3-99cc-f0526119eb42" />
+
 
 ## Tecnologías Utilizadas
 
@@ -154,19 +168,6 @@ Representa una reseña publicada por un usuario.
 - `/Account/Register`: página de registro de usuario.
 - `/Account/AccessDenied`: página de acceso denegado.
 - `/Home/Privacy`: política de privacidad.
-
-## Super Usuario Administrador
-
-La aplicación crea automáticamente un super usuario administrador si no existe uno registrado en `Data/users.json`.
-
-Credenciales iniciales:
-
-```text
-Email: admin@catalogo.local
-Password: Admin123!
-```
-
-Este usuario tiene rol `Admin` y puede agregar o eliminar motocicletas del catálogo.
 
 ## Persistencia Temporal
 
