@@ -1,7 +1,8 @@
-@model CatalogoApp.Domain.Models.Item
+@model CatalogoApp.Presentation.ViewModels.CatalogoDetalleViewModel
 
 @{
-    ViewData["Title"] = $"{Model.Marca} {Model.Modelo}";
+    ViewData["Title"] = $"{Model.Item.Marca} {Model.Item.Modelo}";
+    var returnUrl = $"/Catalogo/Detalle/{Model.Item.Id}";
 }
 
 <section class="detail-wrapper">
@@ -9,44 +10,129 @@
 
     <article class="detail-card">
         <div class="detail-hero">
-            <img src="@Model.ImagenUrl" alt="@Model.Marca @Model.Modelo" />
+            <img src="@Model.Item.ImagenUrl" alt="@Model.Item.Marca @Model.Item.Modelo" />
             <div class="detail-hero-overlay">
-                <span class="eyebrow">@Model.Marca</span>
-                <h1>@Model.Modelo</h1>
-                <span class="detail-price">$@Model.Precio.ToString("N0")</span>
+                <span class="eyebrow">@Model.Item.Marca</span>
+                <h1>@Model.Item.Modelo</h1>
+                <span class="detail-price">$@Model.Item.Precio.ToString("N0")</span>
             </div>
         </div>
 
         <div class="detail-grid">
             <div>
                 <span>Cilindrada</span>
-                <strong>@Model.Cilindrada</strong>
+                <strong>@Model.Item.Cilindrada</strong>
             </div>
             <div>
                 <span>Potencia</span>
-                <strong>@Model.Potencia</strong>
+                <strong>@Model.Item.Potencia</strong>
             </div>
             <div>
                 <span>Año</span>
-                <strong>@Model.Ano</strong>
+                <strong>@Model.Item.Ano</strong>
             </div>
             <div>
                 <span>Categoría</span>
-                <strong>@Model.Categoria</strong>
+                <strong>@Model.Item.Categoria</strong>
             </div>
             <div>
                 <span>Transmisión</span>
-                <strong>@Model.Transmision</strong>
+                <strong>@Model.Item.Transmision</strong>
             </div>
             <div>
                 <span>Color</span>
-                <strong>@Model.Color</strong>
+                <strong>@Model.Item.Color</strong>
             </div>
         </div>
 
         <div class="description-box">
             <span>Descripción</span>
-            <p>@Model.Descripcion</p>
+            <p>@Model.Item.Descripcion</p>
         </div>
     </article>
+
+    <section class="reviews-section">
+        <div class="reviews-heading">
+            <div>
+                <span class="eyebrow">Reseñas</span>
+                <h2>Opiniones de usuarios</h2>
+            </div>
+            <strong>@(Model.Reviews.Count == 0 ? "Sin calificaciones" : $"{Model.PromedioCalificacion:N1}/5")</strong>
+        </div>
+
+        @if (TempData["ReviewSuccess"] is string success)
+        {
+            <div class="review-alert success">@success</div>
+        }
+
+        @if (TempData["ReviewError"] is string error)
+        {
+            <div class="review-alert error">@error</div>
+        }
+
+        @if (!Model.UsuarioAutenticado)
+        {
+            <div class="review-login-card">
+                <p>Debes iniciar sesión para dejar una reseña de esta moto.</p>
+                <a class="btn btn-primary-dark" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@returnUrl">Iniciar sesión para reseñar</a>
+            </div>
+        }
+        else if (Model.UsuarioYaReseno)
+        {
+            <div class="review-login-card">
+                <p>Ya reseñaste esta moto. Solo se permite una reseña por usuario.</p>
+            </div>
+        }
+        else
+        {
+            <form asp-action="AgregarReview" method="post" class="review-form">
+                <input type="hidden" asp-for="NuevaReview.ItemId" />
+
+                <div class="form-group star-rating-group">
+                    <label asp-for="NuevaReview.Calificacion">Calificación</label>
+                    <div class="star-rating" aria-label="Selecciona una calificación de 1 a 5 estrellas">
+                        @for (var rating = 5; rating >= 1; rating--)
+                        {
+                            <input asp-for="NuevaReview.Calificacion" type="radio" id="rating-@rating" value="@rating" />
+                            <label for="rating-@rating" title="@rating estrella@(rating == 1 ? "" : "s")">★</label>
+                        }
+                    </div>
+                    <span asp-validation-for="NuevaReview.Calificacion" class="field-validation-error"></span>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label asp-for="NuevaReview.Comentario">Comentario</label>
+                    <textarea asp-for="NuevaReview.Comentario" class="form-control" rows="4" placeholder="Contá tu experiencia con este modelo"></textarea>
+                    <span asp-validation-for="NuevaReview.Comentario" class="field-validation-error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary-dark">Publicar reseña</button>
+            </form>
+        }
+
+        @if (!Model.Reviews.Any())
+        {
+            <p class="reviews-empty">Todavía no hay reseñas para esta moto.</p>
+        }
+        else
+        {
+            <div class="reviews-list">
+                @foreach (var review in Model.Reviews)
+                {
+                    <article class="review-card">
+                        <div class="review-card-header">
+                            <strong>@review.UsuarioNombre</strong>
+                            <span>@(new string('★', review.Calificacion))@(new string('☆', 5 - review.Calificacion))</span>
+                        </div>
+                        <p>@review.Comentario</p>
+                        <small>@review.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</small>
+                    </article>
+                }
+            </div>
+        }
+    </section>
 </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

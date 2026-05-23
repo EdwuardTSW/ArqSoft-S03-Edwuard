@@ -1,6 +1,7 @@
 using CatalogoApp.Application.Services;
 using CatalogoApp.Domain.Interfaces;
 using CatalogoApp.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,13 +15,43 @@ var jsonPath = Path.Combine(
     "items.json"
 );
 
+var usersJsonPath = Path.Combine(
+    builder.Environment.ContentRootPath,
+    "Data",
+    "users.json"
+);
+
+var reviewsJsonPath = Path.Combine(
+    builder.Environment.ContentRootPath,
+    "Data",
+    "reviews.json"
+);
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+        options.AccessDeniedPath = "/Account/Login";
+    });
+
 // Registrar el repositorio JSON como implementación de IItemRepository
 builder.Services.AddSingleton<IItemRepository>(
     new JsonItemRepository(jsonPath)
 );
 
+builder.Services.AddSingleton<IUsuarioRepository>(
+    new JsonUsuarioRepository(usersJsonPath)
+);
+
+builder.Services.AddSingleton<IReviewRepository>(
+    new JsonReviewRepository(reviewsJsonPath)
+);
+
 // Registrar el servicio de Application
 builder.Services.AddScoped<ItemService>();
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<ReviewService>();
 
 var app = builder.Build();
 
@@ -36,6 +67,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

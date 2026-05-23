@@ -361,3 +361,15 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Local session notes / AI assistant notes artifacts
+SESSION_NOTES.md
+.opencode/
+.claude/
+.agents/
+.cursor/
+.windsurf/
+.aider*
+.ai/
+.chatgpt/
+.gemini/

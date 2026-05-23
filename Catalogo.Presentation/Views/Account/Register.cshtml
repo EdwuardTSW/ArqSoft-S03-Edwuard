@@ -1,0 +1,51 @@
+@model CatalogoApp.Presentation.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Registrarse";
+}
+
+<section class="auth-wrapper">
+    <div class="auth-card">
+        <span class="eyebrow">Nueva cuenta</span>
+        <h1>Registrarse</h1>
+        <p>Creá una cuenta para dejar reseñas con calificación en tus motos favoritas.</p>
+
+        <form asp-action="Register" method="post" class="app-form auth-form">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div asp-validation-summary="ModelOnly" class="validation-summary-errors form-group-full"></div>
+
+            <div class="form-group form-group-full">
+                <label asp-for="Nombre">Nombre</label>
+                <input asp-for="Nombre" class="form-control" autocomplete="name" />
+                <span asp-validation-for="Nombre" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group form-group-full">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" autocomplete="email" />
+                <span asp-validation-for="Email" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group form-group-full">
+                <label asp-for="Password">Contraseña</label>
+                <input asp-for="Password" class="form-control" autocomplete="new-password" />
+                <span asp-validation-for="Password" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group form-group-full">
+                <label asp-for="ConfirmPassword">Confirmar contraseña</label>
+                <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" />
+                <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary-dark">Crear cuenta</button>
+                <a class="btn btn-secondary-dark" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">Ya tengo cuenta</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
